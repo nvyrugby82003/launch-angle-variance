@@ -1,0 +1,38 @@
+# Core data stack
+numpy>=1.26
+pandas>=2.1
+scipy>=1.11
+pyarrow>=14.0
+
+# Baseball data access
+pybaseball>=2.2.7
+
+# Statistics / modeling
+statsmodels>=0.14
+scikit-learn>=1.4
+pymc>=5.10          # optional: hierarchical / Bayesian shrinkage models
+arviz>=0.17
+
+# Visualization
+matplotlib>=3.8
+seaborn>=0.13
+plotly>=5.18
+
+# Scraping / HTTP (respect each site's terms of use)
+requests>=2.31
+beautifulsoup4>=4.12
+lxml>=5.0
+
+# Notebooks
+jupyterlab>=4.0
+ipykernel>=6.29
+
+# Utilities
+tqdm>=4.66
+python-dotenv>=1.0
+pyyaml>=6.0
+
+# Dev tooling
+pytest>=8.0
+ruff>=0.3
+black>=24.0
