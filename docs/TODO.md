@@ -31,12 +31,12 @@ Step-by-step plan. Check items off as you go and keep the README "Project Status
 - [x] Tests for caching and idempotency (Statcast; game logs parser tests included)
 
 ### 1c. Cleaning and features (`src/analysis/`)
-- [ ] Clean Statcast: batted balls only, handle missing launch angle, map batter team correctly (home/away by inning half)
-- [ ] Build PA-weighted team lineup profiles (mean LA, FB%, barrel%, GB/FB, pull-air%)
-- [ ] Build team-game table: runs, opponent, park, home/away
-- [ ] Compute per-team mean and variance of runs per game
-- [ ] Write cleaned tables to `data/processed/` as parquet
-- [ ] Data validation tests (30 teams, game counts, no duplicate games)
+- [x] Clean Statcast: batted balls only, handle missing launch angle, map batter team correctly (home/away by inning half)
+- [x] Build team lineup profiles (mean LA, FB%, barrel%, GB/FB, pull-air%); pooled over batted balls (BBE-weighted), not PA-weighted by hitter
+- [x] Build team-game table: runs, opponent, park, home/away
+- [x] Compute per-team mean and variance of runs per game
+- [x] Write cleaned tables to `data/processed/` as parquet
+- [x] Data validation tests (30 teams, game counts, no duplicate games)
 
 ### 1d. Analysis
 - [ ] EDA notebook: distributions, correlations, sanity checks
