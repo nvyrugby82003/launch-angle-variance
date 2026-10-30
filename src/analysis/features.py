@@ -13,7 +13,9 @@ def clean_batted_balls(pitches: pd.DataFrame) -> pd.DataFrame:
     df = pitches[(pitches["game_type"] == "R") & (pitches["type"] == "X")].copy()
     df = df.dropna(subset=["launch_angle"])
     batting = np.where(df["inning_topbot"] == "Top", df["away_team"], df["home_team"])
-    df["batting_team"] = pd.Series(batting, index=df.index).replace(C.STATCAST_TO_BR)
+    df["batting_team"] = (
+        pd.Series(batting, index=df.index).replace(C.STATCAST_TO_BR).replace(C.FRANCHISE_ALIASES)
+    )
     return df
 
 
@@ -65,13 +67,15 @@ def team_lineup_profiles(bb: pd.DataFrame) -> pd.DataFrame:
     return prof.reset_index()
 
 
-def build_team_games(gamelogs: pd.DataFrame) -> pd.DataFrame:
+def build_team_games(gamelogs: pd.DataFrame, season: int = C.SEASON) -> pd.DataFrame:
     """Typed team-game table: one row per team per game (regular season)."""
     df = gamelogs.copy()
     df["date"] = pd.to_datetime(
-        df["date_game"].str.replace(r"\s*\(\d\)", "", regex=True) + f" {C.SEASON}",
+        df["date_game"].str.replace(r"\s*\(\d\)", "", regex=True) + f" {season}",
         format="%A, %b %d %Y",
     )
+    df["team"] = df["team"].replace(C.FRANCHISE_ALIASES)
+    df["opp_ID"] = df["opp_ID"].replace(C.FRANCHISE_ALIASES)
     df["runs"] = pd.to_numeric(df["R"])
     df["runs_allowed"] = pd.to_numeric(df["RA"])
     df["home"] = df["homeORvis"] != "@"

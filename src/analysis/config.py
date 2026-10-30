@@ -29,6 +29,11 @@ STATCAST_TO_BR = {
     "WSH": "WSN",
 }
 
+# One code per franchise across seasons (the Athletics were OAK through 2024).
+FRANCHISE_ALIASES = {"OAK": "ATH"}
+
+SEASONS = (2023, 2024, 2025, 2026)
+
 # FanGraphs park-factor file uses full team names; map to Baseball Reference codes.
 FANGRAPHS_NAME_TO_CODE = {
     "Angels": "LAA",

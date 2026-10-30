@@ -51,6 +51,32 @@ def scatter_with_fit(
     return fig
 
 
+def scatter_within_season(
+    d: pd.DataFrame, x: str, y: str, xlabel: str, ylabel: str, title: str
+) -> plt.Figure:
+    """Panel scatter after removing season means from x and y; one color per season, Cubs ringed."""
+    dm = d.copy()
+    for col in (x, y):
+        dm[col] = dm[col] - dm.groupby("season")[col].transform("mean")
+    fig, ax = plt.subplots(figsize=(7.5, 5))
+    for season, g in dm.groupby("season"):
+        ax.scatter(g[x], g[y], s=30, alpha=0.75, label=str(season))
+    cubs = dm[dm["team"] == "CHC"]
+    ax.scatter(
+        cubs[x], cubs[y], s=110, facecolors="none", edgecolors=CUBS_COLOR, lw=1.8, label="CHC"
+    )
+    slope, intercept = np.polyfit(dm[x], dm[y], 1)
+    xs = np.linspace(dm[x].min(), dm[x].max(), 50)
+    ax.plot(xs, intercept + slope * xs, color="firebrick", lw=1)
+    r = np.corrcoef(dm[x], dm[y])[0, 1]
+    ax.set_xlabel(f"{xlabel} (minus season mean)")
+    ax.set_ylabel(f"{ylabel} (minus season mean)")
+    ax.set_title(f"{title} (r = {r:.2f}, n = {len(dm)})")
+    ax.legend(fontsize=8)
+    fig.tight_layout()
+    return fig
+
+
 def plot_cv_intervals(d: pd.DataFrame) -> plt.Figure:
     """Team CV of runs scored with bootstrap 95% CIs, sorted by fly-ball rate."""
     s = d.sort_values("fb_pct").reset_index(drop=True)
