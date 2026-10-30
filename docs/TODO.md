@@ -4,10 +4,11 @@ Step-by-step plan. Check items off as you go and keep the README "Project Status
 
 ## Phase 0 — Setup
 - [x] Scaffold repo structure, README, CLAUDE.md, requirements, .gitignore
-- [ ] Finish `pip install -r requirements.txt`; verify imports (`pybaseball`, `pandas`, `statsmodels`)
-- [ ] Register venv as Jupyter kernel (`python -m ipykernel install --user --name launch-angle-variance`)
-- [ ] First git commit; create GitHub repo and push
-- [ ] Add `tests/` directory and a `pyproject.toml` (black / ruff / pytest config)
+- [x] Finish `pip install -r requirements.txt`; verify imports (`pybaseball`, `pandas`, `statsmodels`)
+- [x] Register venv as Jupyter kernel (`python -m ipykernel install --user --name launch-angle-variance`)
+- [x] First git commit
+- [x] Create GitHub repo and push
+- [x] Add `tests/` directory and a `pyproject.toml` (black / ruff / pytest config)
 - [ ] Decide license (README says TBD)
 - [ ] Confirm data access: check 2026 data availability in `pybaseball`, plus Baseball Reference / FanGraphs terms of use and rate limits
 
