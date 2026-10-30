@@ -40,14 +40,14 @@ Step-by-step plan. Check items off as you go and keep the README "Project Status
 
 ### 1d. Analysis
 - [ ] EDA notebook: distributions, correlations, sanity checks
-- [ ] Verify the mechanism: runs-to-win-probability concavity (empirical win% by runs scored)
-- [ ] H1: regress run variance on fly-ball profile, controlling for mean runs, park factor, league environment
-- [ ] H2: test whether variance explains win% minus Pythagorean residual
-- [ ] H3: net effect for the most launch-angle-heavy lineups
-- [ ] Robustness: negative binomial / overdispersion models, drop outlier teams, alternative LA thresholds
+- [x] Verify the mechanism: runs-to-win-probability concavity (empirical win% by runs scored)
+- [x] H1: regress run variance on fly-ball profile, controlling for mean runs, park factor, league environment
+- [x] H2: test whether variance explains win% minus Pythagorean residual
+- [x] H3: net effect for the most launch-angle-heavy lineups
+- [x] Robustness: NB2 moment dispersion, dispersion index, exclude CHC, leave-one-out, alt exposures (mean LA, barrel, pull-air, sweet-spot); alternative LA band cutoffs still to do
 - [ ] Optional: add 2023–2025 seasons to increase n beyond 30
-- [ ] Report effect sizes with confidence intervals; note n=30 power limits
-- [ ] Figures in `src/viz/` and `output/figures/`
+- [x] Report effect sizes with confidence intervals; note n=30 power limits
+- [x] Figures in `src/viz/` and `output/figures/`
 
 ## Phase 2 — Cubs deep dive
 - [ ] Cubs lineup profile vs. league percentile (LA, FB%, barrel%)
