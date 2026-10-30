@@ -26,9 +26,9 @@ Step-by-step plan. Check items off as you go and keep the README "Project Status
 - [ ] Statcast pull for 2026 in date chunks, cached to `data/raw/` (idempotent)
 - [ ] Team game logs (runs scored/allowed, W/L, park, date) for all 30 teams
 - [x] Park factors from FanGraphs into `data/external/` (2025 only; 2026 not yet published)
-- [ ] FanGraphs team batted-ball splits (cross-check against Statcast-derived values)
+- [x] FanGraphs team batted-ball splits (cross-check against Statcast-derived values)
 - [ ] Log provenance in `docs/data_sources.md`
-- [ ] Tests for caching and idempotency
+- [x] Tests for caching and idempotency (Statcast; game logs still to do)
 
 ### 1c. Cleaning and features (`src/analysis/`)
 - [ ] Clean Statcast: batted balls only, handle missing launch angle, map batter team correctly (home/away by inning half)

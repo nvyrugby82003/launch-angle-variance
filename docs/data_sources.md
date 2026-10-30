@@ -6,10 +6,10 @@ Access check run 2026-10-29 with `pybaseball` 2.2.7 and pandas 2.3.3.
 
 | Dataset | Source | Access status | Notes |
 |---------|--------|---------------|-------|
-| Statcast batted balls (2026) | Baseball Savant via `pybaseball.statcast` | Works | One-day pull (2026-06-02) returned 4,505 rows with launch angle and exit velocity. |
+| Statcast batted balls (2026) | Baseball Savant via `pybaseball.statcast` | Works | Cached by day in `data/raw/statcast/2026/` (gitignored) via `python -m src.ingestion.statcast`, which resumes safely. Window 2026-03-15 to 2026-10-05; filter to `game_type == 'R'` later. |
 | Team game logs (2026) | Baseball Reference via `pybaseball.schedule_and_record` | Works | Cubs 2026 schedule returned with runs scored (`R`) and allowed (`RA`). Rate limit is about 20 requests/min; cache everything. |
 | Park factors | FanGraphs Guts! (manual CSV export, 2026-10-29) | Done, **2025 only** | [data/external/fangraphs-guts-data.csv](../data/external/fangraphs-guts-data.csv): 30 teams, columns Basic (5yr), 3yr, 1yr, plus 1B/2B/3B/HR/SO/BB/GB/FB/LD/IFFB/FIP factors. 2026 was not available, so 2025 factors are used as a proxy; note this as a limitation. |
-| Batted-ball splits | FanGraphs via `pybaseball.team_batting` | Blocked (HTTP 403) | Derive from Statcast instead. |
+| Batted-ball splits | FanGraphs (manual CSV export, 2026-10-29) | Done | [data/external/fangraphs-team-batted-ball-2026.csv](../data/external/fangraphs-team-batted-ball-2026.csv): 30 teams, GB/FB, LD%, GB%, FB%, IFFB%, HR/FB, Pull/Cent/Oppo%, Soft/Med/Hard%. Cross-check only; the primary fly-ball rate is derived from Statcast launch angle (see `docs/metrics.md`). `pybaseball.team_batting` is blocked (HTTP 403). |
 
 ## Site rules to follow
 
