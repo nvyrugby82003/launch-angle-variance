@@ -1,6 +1,6 @@
 # Metric Definitions
 
-**Status: DRAFT for review.** These definitions must be fixed before analysis begins; changing them after seeing results is not allowed without documenting the change. All code should import thresholds from a single config module (to be created in `src/analysis/`).
+**Status: FROZEN (approved 2026-10-29).** These definitions are fixed before analysis begins; changing them after seeing results is not allowed without documenting the change here with a dated note. All code should import thresholds from a single config module (to be created in `src/analysis/`).
 
 ## 1. Batted-ball metrics (Statcast)
 

@@ -20,7 +20,7 @@ Step-by-step plan. Check items off as you go and keep the README "Project Status
 - [x] Variance metrics drafted (CV is the primary outcome)
 - [x] Win-expectancy baseline drafted (Pythagenpat residual)
 - [x] Hypotheses H1–H3 and primary regression spec drafted
-- [ ] Review and approve `docs/metrics.md`, then freeze it (commit with message "Freeze metric definitions")
+- [x] Review and approve `docs/metrics.md`, then freeze it (commit with message "Freeze metric definitions")
 
 ### 1b. Ingestion (`src/ingestion/`)
 - [ ] Statcast pull for 2026 in date chunks, cached to `data/raw/` (idempotent)
