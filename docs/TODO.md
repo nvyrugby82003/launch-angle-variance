@@ -16,10 +16,11 @@ Step-by-step plan. Check items off as you go and keep the README "Project Status
 ## Phase 1 — League-wide analysis (30 teams, 2026)
 
 ### 1a. Definitions (write before coding)
-- [ ] `docs/metrics.md`: define fly-ball %, launch-angle bands (e.g., GB <10°, LD 10–25°, FB 25–50°, PU >50°), barrel %, pull-air %, sweet-spot %
-- [ ] Define variance metrics: SD / variance of runs scored per game, coefficient of variation, shutout rate, 8+ run rate
-- [ ] Define win-expectancy baseline: Pythagorean (and/or Pythagenpat) and the residual to test
-- [ ] Pre-register hypotheses H1–H3 and the primary regression spec (avoids tuning to the hypothesis)
+- [x] `docs/metrics.md` drafted: batted-ball metrics (needs your review before they're final)
+- [x] Variance metrics drafted (CV is the primary outcome)
+- [x] Win-expectancy baseline drafted (Pythagenpat residual)
+- [x] Hypotheses H1–H3 and primary regression spec drafted
+- [ ] Review and approve `docs/metrics.md`, then freeze it (commit with message "Freeze metric definitions")
 
 ### 1b. Ingestion (`src/ingestion/`)
 - [ ] Statcast pull for 2026 in date chunks, cached to `data/raw/` (idempotent)
