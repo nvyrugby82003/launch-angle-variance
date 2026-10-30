@@ -25,6 +25,13 @@ RAW_DIR = Path("data/raw/statcast")
 DEFAULT_START = date(2026, 3, 15)
 DEFAULT_END = date(2026, 10, 5)
 REQUEST_DELAY_S = 1.0
+MAX_RETRIES = 4
+# Pull windows (start of the earliest regular-season game to the last regular-season day).
+SEASON_WINDOWS: dict[int, tuple[date, date]] = {
+    2023: (date(2023, 3, 30), date(2023, 10, 1)),
+    2024: (date(2024, 3, 20), date(2024, 9, 30)),
+    2025: (date(2025, 3, 18), date(2025, 9, 28)),
+}
 
 
 def _fetch_day(day: date) -> pd.DataFrame:
@@ -32,7 +39,15 @@ def _fetch_day(day: date) -> pd.DataFrame:
     from pybaseball import statcast
 
     iso = day.isoformat()
-    return statcast(start_dt=iso, end_dt=iso, verbose=False)
+    for attempt in range(1, MAX_RETRIES + 1):
+        try:
+            return statcast(start_dt=iso, end_dt=iso, verbose=False)
+        except Exception as exc:  # dropped connections surface as several exception types
+            if attempt == MAX_RETRIES:
+                raise
+            logger.warning("%s: attempt %d failed (%s); retrying", day, attempt, type(exc).__name__)
+            time.sleep(10 * attempt)
+    raise AssertionError("unreachable")
 
 
 def _day_path(day: date, raw_dir: Path) -> Path:
@@ -112,9 +127,20 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Download and cache Statcast data by day.")
     parser.add_argument("--start", type=date.fromisoformat, default=DEFAULT_START)
     parser.add_argument("--end", type=date.fromisoformat, default=DEFAULT_END)
+    parser.add_argument(
+        "--season",
+        type=int,
+        nargs="+",
+        help="Pull full regular-season windows for these seasons (overrides --start/--end).",
+    )
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
-    print(download_range(args.start, args.end))
+    if args.season:
+        for season in args.season:
+            start, end = SEASON_WINDOWS[season]
+            print(season, download_range(start, end))
+    else:
+        print(download_range(args.start, args.end))
 
 
 if __name__ == "__main__":

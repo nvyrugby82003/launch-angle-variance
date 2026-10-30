@@ -30,6 +30,11 @@ TEAMS: tuple[str, ...] = (
 )  # fmt: skip
 
 
+def teams_for_season(season: int) -> tuple[str, ...]:
+    """Baseball Reference team codes for a season (the Athletics were OAK before 2025)."""
+    return tuple("OAK" if t == "ATH" and season < 2025 else t for t in TEAMS)
+
+
 def parse_schedule_html(html: str) -> pd.DataFrame:
     """Parse a Baseball Reference team schedule page into a text DataFrame.
 
@@ -98,14 +103,14 @@ def download_team(
 
 def download_all(
     season: int = SEASON,
-    teams: tuple[str, ...] = TEAMS,
+    teams: tuple[str, ...] | None = None,
     raw_dir: Path = RAW_DIR,
     fetch: Callable[[int, str], pd.DataFrame] = _fetch_team,
     delay_s: float = REQUEST_DELAY_S,
 ) -> dict[str, int]:
     """Download every team's game log, skipping cached teams. Returns status counts."""
     counts = {"cached": 0, "downloaded": 0}
-    for team in teams:
+    for team in teams or teams_for_season(season):
         status = download_team(season, team, raw_dir, fetch)
         counts[status] += 1
         if status == "downloaded":
@@ -128,10 +133,11 @@ def load_gamelogs(season: int = SEASON, raw_dir: Path = RAW_DIR) -> pd.DataFrame
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Download and cache team game logs.")
-    parser.add_argument("--season", type=int, default=SEASON)
+    parser.add_argument("--season", type=int, nargs="+", default=[SEASON])
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
-    print(download_all(args.season))
+    for season in args.season:
+        print(season, download_all(season))
 
 
 if __name__ == "__main__":

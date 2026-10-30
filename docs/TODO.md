@@ -45,7 +45,7 @@ Step-by-step plan. Check items off as you go and keep the README "Project Status
 - [x] H2: test whether variance explains win% minus Pythagorean residual
 - [x] H3: net effect for the most launch-angle-heavy lineups
 - [x] Robustness: NB2 moment dispersion, dispersion index, exclude CHC, leave-one-out, alt exposures (mean LA, barrel, pull-air, sweet-spot); alternative LA band cutoffs still to do
-- [ ] Optional: add 2023–2025 seasons to increase n beyond 30
+- [x] Optional: ingest 2023–2025 (Statcast + game logs, cached in `data/raw/`; 2,430 / 2,429 / 2,430 games, matching game logs). Still to do: extend `src/analysis` to build a multi-season team-season panel (n=120) with park factors per season
 - [x] Report effect sizes with confidence intervals; note n=30 power limits
 - [x] Figures in `src/viz/` and `output/figures/`
 
