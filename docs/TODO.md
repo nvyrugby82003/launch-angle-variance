@@ -23,7 +23,7 @@ Step-by-step plan. Check items off as you go and keep the README "Project Status
 - [x] Review and approve `docs/metrics.md`, then freeze it (commit with message "Freeze metric definitions")
 
 ### 1b. Ingestion (`src/ingestion/`)
-- [ ] Statcast pull for 2026 in date chunks, cached to `data/raw/` (idempotent)
+- [x] Statcast pull for 2026 in date chunks, cached to `data/raw/` (idempotent): 759,679 pitches, 2,429 regular-season games (one short of 2,430; reconcile against game logs), 0 duplicates
 - [ ] Team game logs (runs scored/allowed, W/L, park, date) for all 30 teams
 - [x] Park factors from FanGraphs into `data/external/` (2025 only; 2026 not yet published)
 - [x] FanGraphs team batted-ball splits (cross-check against Statcast-derived values)
