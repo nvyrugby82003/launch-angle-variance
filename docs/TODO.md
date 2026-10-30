@@ -23,12 +23,12 @@ Step-by-step plan. Check items off as you go and keep the README "Project Status
 - [x] Review and approve `docs/metrics.md`, then freeze it (commit with message "Freeze metric definitions")
 
 ### 1b. Ingestion (`src/ingestion/`)
-- [x] Statcast pull for 2026 in date chunks, cached to `data/raw/` (idempotent): 759,679 pitches, 2,429 regular-season games (one short of 2,430; reconcile against game logs), 0 duplicates
-- [ ] Team game logs (runs scored/allowed, W/L, park, date) for all 30 teams
+- [x] Statcast pull for 2026 in date chunks, cached to `data/raw/` (idempotent): 759,679 pitches, 2,429 regular-season games (one short of 2,430; confirmed by game logs), 0 duplicates
+- [x] Team game logs (runs scored/allowed, W/L, park, date) for all 30 teams: 4,858 team-games = 2,429 games (matches Statcast; two teams have 161, so one scheduled game was likely never played); league RS = RA = 21,769
 - [x] Park factors from FanGraphs into `data/external/` (2025 only; 2026 not yet published)
 - [x] FanGraphs team batted-ball splits (cross-check against Statcast-derived values)
 - [ ] Log provenance in `docs/data_sources.md`
-- [x] Tests for caching and idempotency (Statcast; game logs still to do)
+- [x] Tests for caching and idempotency (Statcast; game logs parser tests included)
 
 ### 1c. Cleaning and features (`src/analysis/`)
 - [ ] Clean Statcast: batted balls only, handle missing launch angle, map batter team correctly (home/away by inning half)
