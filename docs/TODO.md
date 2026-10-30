@@ -39,7 +39,7 @@ Step-by-step plan. Check items off as you go and keep the README "Project Status
 - [x] Data validation tests (30 teams, game counts, no duplicate games)
 
 ### 1d. Analysis
-- [ ] EDA notebook: distributions, correlations, sanity checks
+- [x] EDA notebook (`notebooks/01_eda.ipynb`): distributions, correlations, sanity checks
 - [x] Verify the mechanism: runs-to-win-probability concavity (empirical win% by runs scored)
 - [x] H1: regress run variance on fly-ball profile, controlling for mean runs, park factor, league environment
 - [x] H2: test whether variance explains win% minus Pythagorean residual
