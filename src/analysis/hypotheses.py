@@ -129,6 +129,50 @@ def run_h3(d: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+PLAYOFF_PATH = "data/external/playoff-teams-2026.csv"
+PLAYOFF_METRICS = [
+    "win_pct",
+    "runs_per_game",
+    "runs_allowed_per_game",
+    "runs_cv",
+    "runs_allowed_cv",
+    "fb_pct",
+    "shutout_rate",
+    "win_residual",
+]
+
+
+def load_playoff_teams(path: str = PLAYOFF_PATH) -> list[str]:
+    return pd.read_csv(path)["team"].tolist()
+
+
+def compare_playoff(d: pd.DataFrame, playoff_teams: list[str]) -> pd.DataFrame:
+    """Playoff vs non-playoff team means with Welch 95% CIs. Descriptive only."""
+    from scipy import stats
+
+    is_po = d["team"].isin(playoff_teams)
+    rows = []
+    for col in PLAYOFF_METRICS:
+        a, b = d.loc[is_po, col], d.loc[~is_po, col]
+        t = stats.ttest_ind(a, b, equal_var=False)
+        se = np.sqrt(a.var(ddof=1) / len(a) + b.var(ddof=1) / len(b))
+        crit = stats.t.ppf(0.975, t.df)
+        diff = a.mean() - b.mean()
+        rows.append(
+            {
+                "metric": col,
+                "playoff_mean": a.mean(),
+                "non_playoff_mean": b.mean(),
+                "diff": diff,
+                "ci_lo": diff - crit * se,
+                "ci_hi": diff + crit * se,
+                "p": t.pvalue,
+                "n_playoff": int(is_po.sum()),
+            }
+        )
+    return pd.DataFrame(rows)
+
+
 def run_robustness(d: pd.DataFrame) -> pd.DataFrame:
     """Secondary specs only; the exposure coefficient is reported for each."""
     specs = {

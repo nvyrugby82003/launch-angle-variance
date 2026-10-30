@@ -45,6 +45,22 @@ def test_h3_picks_top_quintile():
     assert (out["ci_lo"] <= out["diff"]).all()
 
 
+def test_playoff_file_has_12_known_teams():
+    teams = H.load_playoff_teams()
+    assert len(teams) == 12 and len(set(teams)) == 12
+    assert {"CHC", "MIL"} <= set(teams)
+
+
+def test_compare_playoff_splits_groups():
+    rng = np.random.default_rng(3)
+    d = pd.DataFrame({"team": [f"T{i}" for i in range(30)]})
+    for c in H.PLAYOFF_METRICS:
+        d[c] = rng.normal(size=30)
+    out = H.compare_playoff(d, ["T0", "T1", "T2"])
+    assert out["n_playoff"].iloc[0] == 3 and len(out) == len(H.PLAYOFF_METRICS)
+    assert np.allclose(out["diff"], out["playoff_mean"] - out["non_playoff_mean"])
+
+
 def test_ols_recovers_slope():
     rng = np.random.default_rng(2)
     x = rng.normal(size=200)
