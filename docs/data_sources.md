@@ -8,8 +8,16 @@ Access check run 2026-10-29 with `pybaseball` 2.2.7 and pandas 2.3.3.
 |---------|--------|---------------|-------|
 | Statcast batted balls (2026) | Baseball Savant via `pybaseball.statcast` | Works | One-day pull (2026-06-02) returned 4,505 rows with launch angle and exit velocity. |
 | Team game logs (2026) | Baseball Reference via `pybaseball.schedule_and_record` | Works | Cubs 2026 schedule returned with runs scored (`R`) and allowed (`RA`). Rate limit is about 20 requests/min; cache everything. |
-| Park factors | FanGraphs | Blocked via `pybaseball` (HTTP 403) | Export manually from FanGraphs (Guts! > Park Factors) into `data/external/`. |
-| Batted-ball splits | FanGraphs via `pybaseball.team_batting` | Blocked (HTTP 403) | Derive from Statcast instead, or export CSV manually. |
+| Park factors | FanGraphs Guts! (manual CSV export, 2026-10-29) | Done, **2025 only** | [data/external/fangraphs-guts-data.csv](../data/external/fangraphs-guts-data.csv): 30 teams, columns Basic (5yr), 3yr, 1yr, plus 1B/2B/3B/HR/SO/BB/GB/FB/LD/IFFB/FIP factors. 2026 was not available, so 2025 factors are used as a proxy; note this as a limitation. |
+| Batted-ball splits | FanGraphs via `pybaseball.team_batting` | Blocked (HTTP 403) | Derive from Statcast instead. |
+
+## Site rules to follow
+
+- **Baseball Reference:** `robots.txt` crawl-delay is 3 seconds and the bot policy caps requests at about 20/min. Sleep at least 3 seconds between requests and cache every response. Terms: https://www.sports-reference.com/termsofuse.html
+- **FanGraphs:** no `robots.txt` restriction on the leaderboard and Guts! pages, but automated requests get a 403. Use manual exports only. Do not redistribute large exports.
+- **Baseball Savant:** `robots.txt` is fully open. Keep pulls to day-sized chunks and cache them.
+- Raw data stays out of git. Small reference tables in `data/external/` may be committed.
+- robots.txt and terms reviewed 2026-10-29.
 
 Notes:
 - `pybaseball` 2.2.7 is incompatible with pandas 3.x (`schedule_and_record` fails on the "Unknown" attendance value), so `requirements.txt` pins `pandas<3`.

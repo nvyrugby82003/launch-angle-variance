@@ -11,7 +11,7 @@ Step-by-step plan. Check items off as you go and keep the README "Project Status
 - [x] Add `tests/` directory and a `pyproject.toml` (black / ruff / pytest config)
 - [x] Decide license (MIT)
 - [x] Confirm 2026 data access in `pybaseball`: Statcast and Baseball Reference work; FanGraphs is blocked (403), so use manual CSV exports (see `docs/data_sources.md`)
-- [ ] Read terms of use / robots.txt for Baseball Reference, FanGraphs, Baseball Savant
+- [x] Read terms of use / robots.txt for Baseball Reference, FanGraphs, Baseball Savant (summarized in `docs/data_sources.md`)
 
 ## Phase 1 — League-wide analysis (30 teams, 2026)
 
@@ -24,7 +24,7 @@ Step-by-step plan. Check items off as you go and keep the README "Project Status
 ### 1b. Ingestion (`src/ingestion/`)
 - [ ] Statcast pull for 2026 in date chunks, cached to `data/raw/` (idempotent)
 - [ ] Team game logs (runs scored/allowed, W/L, park, date) for all 30 teams
-- [ ] Park factors from FanGraphs into `data/external/`
+- [x] Park factors from FanGraphs into `data/external/` (2025 only; 2026 not yet published)
 - [ ] FanGraphs team batted-ball splits (cross-check against Statcast-derived values)
 - [ ] Log provenance in `docs/data_sources.md`
 - [ ] Tests for caching and idempotency
