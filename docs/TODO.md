@@ -9,7 +9,7 @@ Step-by-step plan. Check items off as you go and keep the README "Project Status
 - [x] First git commit
 - [x] Create GitHub repo and push
 - [x] Add `tests/` directory and a `pyproject.toml` (black / ruff / pytest config)
-- [ ] Decide license (README says TBD)
+- [x] Decide license (MIT)
 - [ ] Confirm data access: check 2026 data availability in `pybaseball`, plus Baseball Reference / FanGraphs terms of use and rate limits
 
 ## Phase 1 — League-wide analysis (30 teams, 2026)

@@ -126,7 +126,7 @@ python -c "import pybaseball, pandas, statsmodels; print('ok')"
 
 ## License
 
-TBD.
+Code is released under the [MIT License](LICENSE). Source data remains subject to the terms of Baseball Savant / MLB, Baseball-Reference, and FanGraphs.
 
 ## Acknowledgments
 
